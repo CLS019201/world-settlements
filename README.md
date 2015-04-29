@@ -1,5 +1,5 @@
 # Text Mining - Vizualising World Settlements - Jason Fan and Tom Wang
-
+[github.io page](http://jasonfan74.github.io/world-settlements)
 ##Acknowledgements:
 
 * First, we would like to thank Prof. Maxim Romanov for his patience, time and enthusiasm.
