@@ -30,24 +30,9 @@ path {
 .hexagons path {
   stroke: #fff;
 }
-
-.points {
-/*  fill: blue;
-  stroke: blue;
-  stroke-opacity: 0.5;
-  stroke-width:0.2px;
-  fill-opacity: 0.2;*/
-}
 #slider{
   width:90%;
 }
-
-/*p{
-  text-align:center;
-  color: steelblue;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;;
-}*/
-
 </style>
 </head>
 <body>
@@ -69,9 +54,6 @@ path {
 <script>
 var thresh = new Date(1900, 0, 1)
 
-
-// var width = 960,
-//     height = 500,
 var width = 1000 ,
     height = 600 ,
     parseDate = d3.time.format("%x").parse;
@@ -89,11 +71,6 @@ var radius = d3.scale.sqrt()
     .domain([0, 6])
     .range([0, 4]);
 
-// var projection = d3.geo.albers()
-//     .scale(1000)
-//     .translate([width / 2, height / 2])
-//     .precision(.1);
-
 var projection = d3.geo.patterson()
     .scale(620)
     .translate([1600, 700])
@@ -106,6 +83,7 @@ var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
 
+// Sliders 
 $(document).ready(function(){
             $.getJSON("json/us_pop.json",function(flist){
                 pops = flist;
@@ -121,7 +99,6 @@ $(document).ready(function(){
               $('span#year').text(year);
                 var thresh = new Date(year, 0, 1);
                 var thresh_secs = thresh.valueOf();
-                //console.log(thresh);
                 d3.selectAll("circle")
                   .transition()
                   .duration(2000)
@@ -188,34 +165,15 @@ function ready(error, world, walmarts) {
       .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
       .attr("class", "boundary")
       .attr("d", path);
-  // svg.append("path")
-  //     .datum(topojson.feature(us, us.objects.land))
-  //     .attr("class", "land")
-  //     .attr("d", path);
 
-  // svg.append("path")
-  //     .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
-  //     .attr("class", "states")
-  //     .attr("d", path);
-
-  // svg.append("g")
-  //     .attr("class", "hexagons")
-  //   .selectAll("path")
-  //     .data(hexbin(walmarts).sort(function(a, b) { return b.length - a.length; }))
-  //   .enter().append("path")
-  //     .attr("d", function(d) { return hexbin.hexagon(radius(4)); })
-  //     .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-  //     .style("fill", function(d) { return color(d3.median(d, function(d) { return + d.date; })); });
   svg.append("g")
       .attr("class", "points")
     .selectAll("path")
-      .data(walmarts) // .filter(function(d) {return + d.date < thresh }))
+      .data(walmarts)
     .enter().append("circle")
       .attr("r", 2)
       .attr("date", function (d) {return Date.parse(d.date); })
-      // .attr("d", function(d) { return hexbin.hexagon(radius(4)); })
       .attr("transform", function(d) { return "translate(" + d[0] + "," + d[1] + ")"; })
       .style("fill", function(d) { return color(d.date); });
 }
-
 </script>

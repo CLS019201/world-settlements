@@ -31,15 +31,6 @@ path {
   stroke: none;
 }
 
-.points {
-/*  fill: blue;
-  stroke: blue;
-  stroke-opacity: 0.5;
-  stroke-width:0.2px;
-  fill-opacity: 0.2;*/
-}
-
-
 /*UI*/
 
 #slider{
@@ -93,9 +84,6 @@ var pops = population("json/world.json");
 
 var thresh = new Date(1900, 0, 1)
 
-
-// var width = 960,
-//     height = 500,
 var width = 960 * 1.5,
     height = 547 * 1.5,
     parseDate = d3.time.format("%x").parse;
@@ -112,11 +100,6 @@ var hexbin = d3.hexbin()
 var radius = d3.scale.sqrt()
     .domain([0, 6])
     .range([0, 4]);
-
-// var projection = d3.geo.albers()
-//     .scale(1000)
-//     .translate([width / 2, height / 2])
-//     .precision(.1);
 
 var projection = d3.geo.patterson()
     .scale(250)
@@ -208,15 +191,7 @@ function ready(error, world, walmarts) {
       .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
       .attr("class", "boundary")
       .attr("d", path);
-  // svg.append("path")
-  //     .datum(topojson.feature(us, us.objects.land))
-  //     .attr("class", "land")
-  //     .attr("d", path);
 
-  // svg.append("path")
-  //     .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
-  //     .attr("class", "states")
-  //     .attr("d", path);
   svg.append("g")
       .attr("class", "hexagons")
     .selectAll("path")
@@ -227,17 +202,6 @@ function ready(error, world, walmarts) {
       .attr("d", function(d) { return hexbin.hexagon(radius(1)); })
       .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
       .style("fill", function(d) { return color(d3.median(d, function(d) { return +d.date; })); });
-  // svg.append("g")
-  //     .attr("class", "points")
-  //   .selectAll("path")
-  //     .data(walmarts) // .filter(function(d) {return + d.date < thresh }))
-  //   .enter().append("circle")
-  //     .attr("r", 2.5)
-  //     .attr("date", function (d) {return Date.parse(d.date); })
-  //     // .attr("d", function(d) { return hexbin.hexagon(radius(4)); })
-  //     .attr("transform", function(d) { return "translate(" + d[0] + "," + d[1] + ")"; })
-  //     .style("fill", function(d) { return color(d.date); });
-
 }
 
 </script>
