@@ -5,4 +5,4 @@ app.use(express.static(__dirname));
 //    res.send("hello");
 //});
 console.log("Visualizing the world on port 8000");
-app.listen(process.env.port || 8000);
+app.listen(process.env.PORT || 8000);
