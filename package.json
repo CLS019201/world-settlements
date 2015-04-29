@@ -1,0 +1,24 @@
+{
+  "name": "world-settlements",
+  "version": "1.0.0",
+  "description": "All our gratitude goes to Mike Bostock, who has generally provided and educated us all with his examples.",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.12.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JasonFan74/world-settlements.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JasonFan74/world-settlements/issues"
+  },
+  "homepage": "https://github.com/JasonFan74/world-settlements"
+}

@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
-<style>
+    <style>
 
-path {
-  fill: none;
-  stroke-linejoin: round;
-}
-.graticule {
-  fill: none;
-  stroke: #777;
-  stroke-width: .5px;
-  stroke-opacity: .5;
-}
+        path {
+          fill: none;
+          stroke-linejoin: round;
+      }
+      .graticule {
+          fill: none;
+          stroke: #777;
+          stroke-width: .5px;
+          stroke-opacity: .5;
+      }
 
-.boundary {
-  fill: none;
-  stroke: #fff;
-  stroke-width: .5px;
-}
+      .boundary {
+          fill: none;
+          stroke: #fff;
+          stroke-width: .5px;
+      }
 
-.land {
-  fill: #ddd;
-}
+      .land {
+          fill: #ddd;
+      }
 
-.states,
-.hexagons path {
-  stroke: none;
-}
+      .states,
+      .hexagons path {
+          stroke: none;
+      }
 
-.points {
+      .points {
 /*  fill: blue;
   stroke: blue;
   stroke-opacity: 0.5;
@@ -84,25 +84,24 @@ path {
 <script>
 var thresh = new Date(1900, 0, 1)
 
-
 // var width = 960,
 //     height = 500,
 var width = 1300,
-    height = 650 ,
-    parseDate = d3.time.format("%x").parse;
+height = 650 ,
+parseDate = d3.time.format("%x").parse;
 
 var color = d3.time.scale()
-    .domain([new Date(1700, 0, 1), new Date(1900, 0, 1)])
-    .range(["black", "lightblue"])
-    .interpolate(d3.interpolateLab);
+.domain([new Date(1700, 0, 1), new Date(1900, 0, 1)])
+.range(["black", "lightblue"])
+.interpolate(d3.interpolateLab);
 
 var hexbin = d3.hexbin()
-    .size([width, height])
-    .radius(2);
+.size([width, height])
+.radius(2);
 
 var radius = d3.scale.sqrt()
-    .domain([0, 6])
-    .range([0, 4]);
+.domain([0, 6])
+.range([0, 4]);
 
 // var projection = d3.geo.albers()
 //     .scale(1000)
@@ -115,76 +114,76 @@ var radius = d3.scale.sqrt()
 //     .precision(.1);
 
 var projection = d3.geo.orthographic()
-    .scale(300)
-    .translate([width / 2, height / 2])
-    .clipAngle(90)
-    .precision(.1);
+.scale(300)
+.translate([width / 2, height / 2])
+.clipAngle(90)
+.precision(.1);
 
 var path = d3.geo.path()
-    .projection(projection);
+.projection(projection);
 
 var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
+.attr("width", width)
+.attr("height", height);
 
 $(document).ready(function(){
-            $("#slider").change(function(){
-              console.log('changed');
-              var year = $(this).val();
+    $("#slider").change(function(){
+      console.log('changed');
+      var year = $(this).val();
 
-              $("#type-year").val(year);
-              console.log(year);
-              $('span#year').text(year);
-                var thresh = new Date(year, 0, 1);
-                var thresh_secs = thresh.valueOf();
+      $("#type-year").val(year);
+      console.log(year);
+      $('span#year').text(year);
+      var thresh = new Date(year, 0, 1);
+      var thresh_secs = thresh.valueOf();
                 //console.log(thresh);
                 d3.selectAll("circle")
-                  .transition()
-                  .duration(2000)
-                  .each(function() {
+                .transition()
+                .duration(2000)
+                .each(function() {
                     d3.select(this)
-                      .style("fill-opacity", function(d) {
+                    .style("fill-opacity", function(d) {
                         var date_raw = d3.select(this).attr("date")
                         if (parseInt(d3.select(this).attr("date"),10) > thresh_secs) {
                           return 0; 
-                        } else {
+                      } else {
                           return 1;
-                        }
+                      }
                   })
-                  })
+                })
             });
-            $("#type-year").change(function(){
-              console.log('changed');
-              var year = $(this).val();
-              $("#slider").val(year);
-              console.log(year);
-              $('span#year').text(year);
-                var thresh = new Date(year, 0, 1);
-                var thresh_secs = thresh.valueOf();
+    $("#type-year").change(function(){
+      console.log('changed');
+      var year = $(this).val();
+      $("#slider").val(year);
+      console.log(year);
+      $('span#year').text(year);
+      var thresh = new Date(year, 0, 1);
+      var thresh_secs = thresh.valueOf();
                 //console.log(thresh);
                 d3.selectAll("circle")
-                  .transition()
-                  .duration(2000)
-                  .each(function() {
+                .transition()
+                .duration(2000)
+                .each(function() {
                     d3.select(this)
-                      .style("fill-opacity", function(d) {
+                    .style("fill-opacity", function(d) {
                         var date_raw = d3.select(this).attr("date");
                         if (parseInt(d3.select(this).attr("date"),10) > thresh_secs) {
                           return 0; 
-                        } else {
+                      } else {
                           return 1;
-                        }
+                      }
                   })
-                  })
+                })
             });
 
-        });
+});
 
 
 queue()
-    .defer(d3.json, "json/world_ortho.json")
-    .defer(d3.tsv, "json/dated_americas.tsv")
-    .await(ready);
+.defer(d3.json, "json/world_ortho.json")
+.defer(d3.tsv, "json/dated_americas.tsv")
+.await(ready);
 
 var graticule = d3.geo.graticule();
 
@@ -195,30 +194,30 @@ function ready(error, world, walmarts) {
     var p = projection(d);
     d[0] = p[0], d[1] = p[1];
     d.date = parseDate(d.date);
-  });
+});
   svg.append("defs").append("path")
-    .datum({type: "Sphere"})
-    .attr("id", "sphere")
-    .attr("d", path);
-svg.append("use")
-    .attr("class", "stroke")
-    .attr("xlink:href", "#sphere");
-svg.append("use")
-    .attr("class", "fill")
-    .attr("xlink:href", "#sphere");
-svg.append("path")
-    .datum(graticule)
-    .attr("class", "graticule")
-    .attr("d", path);
+  .datum({type: "Sphere"})
+  .attr("id", "sphere")
+  .attr("d", path);
+  svg.append("use")
+  .attr("class", "stroke")
+  .attr("xlink:href", "#sphere");
+  svg.append("use")
+  .attr("class", "fill")
+  .attr("xlink:href", "#sphere");
+  svg.append("path")
+  .datum(graticule)
+  .attr("class", "graticule")
+  .attr("d", path);
   svg.insert("path", ".graticule")
-      .datum(topojson.feature(world, world.objects.land))
-      .attr("class", "land")
-      .attr("d", path);
+  .datum(topojson.feature(world, world.objects.land))
+  .attr("class", "land")
+  .attr("d", path);
 
   svg.insert("path", ".graticule")
-      .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
-      .attr("class", "boundary")
-      .attr("d", path);
+  .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+  .attr("class", "boundary")
+  .attr("d", path);
 
   // svg.insert("path", ".graticule")
   //     .datum(topojson.feature(world, world.objects.land))
@@ -250,14 +249,14 @@ svg.append("path")
   //     .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
   //     .style("fill", function(d) { return color(d3.median(d, function(d) { return +d.date; })); });
   svg.append("g")
-      .attr("class", "points")
-    .selectAll("path")
+  .attr("class", "points")
+  .selectAll("path")
       .data(walmarts) // .filter(function(d) {return + d.date < thresh }))
-    .enter().append("circle")
-      .attr("r", 1)
-      .attr("date", function (d) {return Date.parse(d.date); })
+.enter().append("circle")
+.attr("r", 1)
+.attr("date", function (d) {return Date.parse(d.date); })
       // .attr("d", function(d) { return hexbin.hexagon(radius(4)); })
       .attr("transform", function(d) { return "translate(" + d[0] + "," + d[1] + ")"; })
       .style("fill", function(d) { return color(d.date); });
-}
+  }
 </script>
